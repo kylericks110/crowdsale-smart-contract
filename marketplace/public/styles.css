@@ -4,3 +4,29 @@
 @media(max-width:1170px){.shell{grid-template-columns:205px minmax(0,1fr)}.sidebar{padding-left:12px;padding-right:12px}.brand-copy strong{font-size:20px}.hero-orbit{right:0;opacity:.4}.metric-card{padding:17px}.metric-card strong{font-size:29px}.content-grid{grid-template-columns:1fr}.inspector{min-height:220px}.inspector h3{margin-top:14px}}
 @media(max-width:780px){.shell{display:block}.sidebar{height:auto;position:static;padding:15px 16px;display:block;border-bottom:1px solid var(--line)}.brand{padding:0 0 15px}.nav-caption,.sidebar-bottom{display:none}.navigation{display:flex;overflow-x:auto;gap:7px}.nav-link{flex:1;white-space:nowrap;justify-content:center;padding:9px;font-size:11px}.nav-symbol{font-size:15px}.topbar{height:54px;padding:0 16px}.top-status{font-size:9px}.main-body{padding:16px}.hero{padding:26px 23px;min-height:250px}.hero-orbit{right:-75px;top:35px;opacity:.3}.hero-note{font-size:8px}.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.metric-card{min-height:110px}.section-heading{align-items:start;flex-direction:column}.section-tag{font-size:9px}.partners-grid,.simulator-grid{grid-template-columns:1fr}.footer{flex-direction:column}.hero-actions{flex-wrap:wrap;gap:12px}.section-heading h2{font-size:23px}}
 @media(max-width:420px){.brand-copy strong{font-size:18px}.top-status{font-size:8px}.breadcrumb{font-size:8px}.breadcrumb strong{display:none}.hero h1{font-size:32px}.hero p{font-size:12px}.metric-card strong{font-size:30px}.metric-card span{font-size:8px}.content-grid{gap:10px}.consent-partners{grid-template-columns:1fr}td{padding:16px 13px}th{padding:15px 13px}.nav-link{font-size:10px;gap:5px}}
+
+
+/* Insurance landing page previews, synthetic only */
+.insurance-quicklinks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 16px}
+.insurance-quicklinks a{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:14px 18px;border:1px solid #655136;border-radius:11px;background:#1d2631;color:#eddbb9;font-weight:650}
+.insurance-quicklinks a span{font-size:10px;color:#a8b4c4;font-weight:450}
+.campaign-body{background:radial-gradient(circle at 74% 13%,#342a205c,transparent 42%),#080e19;color:#f4f0e7}
+.campaign-shell{max-width:1400px;margin:auto;padding:0 34px}
+.campaign-nav{display:flex;align-items:center;justify-content:space-between;padding:26px 0}
+.campaign-nav .brand{padding:0}.campaign-status{color:#b8a27d;font-size:10px;letter-spacing:.11em}
+.campaign-hero{min-height:490px;border:1px solid #685538aa;border-radius:23px;padding:65px;position:relative;display:flex;align-items:center;overflow:hidden;background:radial-gradient(circle at 76% 60%,#6e512f7a,transparent 36%),linear-gradient(115deg,#152438,#101a29 70%,#151b25)}
+.campaign-hero:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(#d5b07977 .8px,transparent 1px);background-size:40px 48px;mask-image:linear-gradient(to left,#000,transparent 72%)}
+.campaign-content{position:relative;z-index:1;max-width:720px}.campaign-content h1{font-size:clamp(38px,4.6vw,66px);font-weight:550;line-height:1.08;letter-spacing:-.05em;margin:24px 0}
+.campaign-content>p{font-size:16px;line-height:1.75;color:#bdc7d2;max-width:650px}.campaign-content>.btn{margin-top:17px}
+.campaign-content .campaign-note{font-size:11px;color:#a3aebc;margin:13px 0 0}.campaign-celestial{position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:380px;color:#e8bb74;opacity:.28;text-shadow:0 0 80px #cca05c}
+.campaign-features,.campaign-steps,.campaign-bottom{margin:55px 0}.campaign-features h2,.campaign-steps h2,.campaign-bottom h2{font-size:32px;line-height:1.2;letter-spacing:-.04em;font-weight:550}
+.campaign-feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:25px}
+.campaign-feature-grid article{border:1px solid #2e3b4c;background:#121e2e;padding:28px;border-radius:15px;min-height:197px}
+.campaign-feature-grid span{color:#e6c184;font-size:12px}.campaign-feature-grid h3{font-size:19px;margin:22px 0 8px}.campaign-feature-grid p{color:#a6b6c4;line-height:1.65;margin:0}
+.campaign-steps{text-align:center}.campaign-steps>div{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
+.campaign-steps p{padding:15px 0;border-top:1px solid #95734e;text-align:left;display:flex;gap:14px;color:#bdcad6}
+.campaign-steps b{color:#e9bd78;font-size:24px}.campaign-bottom{border:1px solid #58482d;padding:35px 40px;background:#141f2d;border-radius:18px;display:flex;align-items:center;justify-content:space-between;gap:25px}
+.campaign-bottom h2{margin:13px 0}.campaign-bottom p{color:#aebcca;line-height:1.6}.campaign-bottom .btn{white-space:nowrap}
+.campaign-footer{border-top:1px solid #273446;padding:25px 0 60px;color:#95a5b5;font-size:12px;line-height:1.75}.campaign-footer a{color:#ecc98c;text-decoration:underline}
+@media(max-width:800px){.campaign-shell{padding:0 16px}.campaign-hero{padding:38px 28px;min-height:450px}.campaign-celestial{right:-120px;opacity:.14}.campaign-feature-grid,.campaign-steps>div{grid-template-columns:1fr}.campaign-feature-grid article{min-height:145px}.campaign-bottom{flex-direction:column;align-items:start}}
+@media(max-width:540px){.campaign-status{font-size:8px;max-width:100px;text-align:right}.campaign-content h1{font-size:38px}.campaign-content>p{font-size:14px}.campaign-features h2,.campaign-steps h2,.campaign-bottom h2{font-size:26px}.insurance-quicklinks{grid-template-columns:1fr}.campaign-bottom{padding:25px}.campaign-hero{min-height:475px}}
