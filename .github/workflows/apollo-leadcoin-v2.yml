@@ -1,0 +1,33 @@
+name: Apollo LeadCoin V2 tests
+
+on:
+  pull_request:
+    paths:
+      - "apollo-v2/**"
+      - ".github/workflows/apollo-leadcoin-v2.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  forge-tests:
+    name: Solidity build and tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+      - name: Install version-pinned OpenZeppelin
+        working-directory: apollo-v2
+        run: forge install --no-git OpenZeppelin/openzeppelin-contracts@v5.7.0
+      - name: Build
+        working-directory: apollo-v2
+        run: forge build
+      - name: Test
+        working-directory: apollo-v2
+        run: forge test -vvv
