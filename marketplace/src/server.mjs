@@ -8,6 +8,8 @@ import { matchLead, makeDemoLead, scoreLead, summarize, consentStatus } from "./
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const assets = new Map([
   ["/", ["public/index.html", "text/html; charset=utf-8"]],
+  ["/final-expense", ["public/final-expense.html", "text/html; charset=utf-8"]],
+  ["/mortgage-protection", ["public/mortgage-protection.html", "text/html; charset=utf-8"]],
   ["/styles.css", ["public/styles.css", "text/css; charset=utf-8"]],
   ["/app.mjs", ["public/app.mjs", "text/javascript; charset=utf-8"]]
 ]);
@@ -55,6 +57,7 @@ export function requestHandler(req, res) {
           id: lead.id, title: lead.title, category: lead.category, region: lead.region,
           intent: lead.intent, urgencyDays: lead.urgencyDays,
           contactChannel: lead.contactChannel,
+          insuranceInterestConfirmed: lead.insuranceInterestConfirmed === true,
           ...scoreLead(lead),
           consent: consentStatus(lead),
           eligibleMatches: matchLead(lead, partners).eligible.length
