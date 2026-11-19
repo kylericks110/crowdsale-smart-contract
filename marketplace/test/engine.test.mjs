@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { partners, leads } from "../src/data.mjs";
-import { scoreLead, matchLead, evaluatePartner, consentStatus, makeDemoLead, summarize, CONSENT_POLICY } from "../src/engine.mjs";
+import { scoreLead, matchLead, evaluatePartner, consentStatus, makeDemoLead, summarize, CONSENT_POLICY, INSURANCE_CATEGORIES } from "../src/engine.mjs";
 
 const now = new Date();
 const lead = leads[0];
@@ -81,7 +81,35 @@ test("demo lead produces a permitted match only after affirmative opt-in", () =>
 test("summary labels modeled revenue as simulated", () => {
   const result = summarize(leads, partners, now);
   assert.equal(result.demo, true);
-  assert.equal(result.leads, 6);
+  assert.equal(result.leads, 8);
   assert.ok(result.consentBlocked >= 2);
   assert.match(result.disclaimer, /not actual/);
+});
+
+test("final expense requires explicit interest and authorized category", () => {
+  const example = leads.find(x => x.category === "final_expense");
+  assert.deepEqual(matchLead(example, partners, now).eligible.map(x => x.partnerId), ["P-SOL"]);
+  assert.equal(matchLead({ ...example, insuranceInterestConfirmed: false }, partners, now).eligible.length, 0);
+  assert.equal(evaluatePartner(example, { ...partners.find(x => x.id === "P-SOL"), demoInsuranceQualified: false }, now).eligible, false);
+});
+
+test("mortgage protection does not route to a final expense partner", () => {
+  const example = leads.find(x => x.category === "mortgage_protection");
+  assert.deepEqual(matchLead(example, partners, now).eligible.map(x => x.partnerId), ["P-HOME"]);
+  assert.equal(evaluatePartner(example, { ...partners.find(x => x.id === "P-SOL"), categories: ["mortgage_protection"] }, now).eligible, false);
+  assert.equal(INSURANCE_CATEGORIES.length, 2);
+});
+
+test("insurance requires source verification", () => {
+  const example = { ...leads.find(x => x.category === "final_expense"), sourceVerified: false };
+  assert.equal(matchLead(example, partners, now).eligible.length, 0);
+});
+
+test("insurance interest must be explicitly boolean", () => {
+  const input = { demoMode: true, category: "mortgage_protection", region: "Broward", intent: "ready",
+    urgencyDays: 7, verifiedNeed: true, budgetConfirmed: false, sourceVerified: true,
+    contactChannel: "email", insuranceInterestConfirmed: true,
+    consentGiven: true, approvedPartnerIds: ["P-HOME"] };
+  assert.equal(matchLead(makeDemoLead(input, partners, now), partners, now).eligible.length, 1);
+  assert.throws(() => makeDemoLead({ ...input, insuranceInterestConfirmed: "yes" }, partners), /Invalid insurance/);
 });
