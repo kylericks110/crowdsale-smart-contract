@@ -5,6 +5,20 @@ import { startServer } from "../src/server.mjs";
 test("local demo APIs and privacy controls", async () => {
   const app = await startServer({ port: 0 });
   try {
+    const home = await fetch(app.url + "/");
+    assert.equal(home.status, 200);
+    assert.match(home.headers.get("content-type"), /text\/html/);
+    const html = await home.text();
+    assert.match(html, /Apollo Leads/);
+    assert.match(html, /id="sim-form"/);
+
+    const css = await fetch(app.url + "/styles.css");
+    assert.equal(css.status, 200);
+    assert.match(await css.text(), /--gold:/);
+    const script = await fetch(app.url + "/app.mjs");
+    assert.equal(script.status, 200);
+    assert.match(await script.text(), /renderSimulation/);
+
     const health = await fetch(app.url + "/api/health");
     assert.equal(health.status, 200);
     const info = await health.json();
