@@ -6,8 +6,11 @@
 export const CATEGORIES = Object.freeze([
   { id: "real_estate", name: "Real estate" },
   { id: "home_services", name: "Home services" },
-  { id: "business_services", name: "Business services" }
+  { id: "business_services", name: "Business services" },
+  { id: "final_expense", name: "Final expense life insurance" },
+  { id: "mortgage_protection", name: "Mortgage protection life insurance" }
 ]);
+export const INSURANCE_CATEGORIES = Object.freeze(["final_expense", "mortgage_protection"]);
 export const REGIONS = Object.freeze(["Miami-Dade", "Broward", "Palm Beach"]);
 export const INTENTS = Object.freeze(["exploring", "comparing", "ready"]);
 export const CHANNELS = Object.freeze(["email", "phone"]);
@@ -64,6 +67,20 @@ export function evaluatePartner(lead, partner, now = new Date()) {
   if (!partner.regions.includes(lead.region)) problems.push("Outside service area");
   if (!partner.channels.includes(lead.contactChannel)) problems.push("Partner does not accept selected channel");
   if (partner.openSlots <= 0) problems.push("Partner capacity reached");
+  // DEMO markers are not verification of an actual insurance license or appointment.
+  if (INSURANCE_CATEGORIES.includes(lead.category)) {
+    if (lead.insuranceInterestConfirmed !== true) {
+      problems.push("Consumer has not confirmed interest in this insurance product");
+    }
+    if (lead.sourceVerified !== true) {
+      problems.push("Insurance lead source has not been verified");
+    }
+    if (partner.demoInsuranceQualified !== true ||
+        !partner.demoInsuranceStates?.includes("FL") ||
+        !partner.demoInsuranceProducts?.includes(lead.category)) {
+      problems.push("Agent product/state authorization is not demo-qualified");
+    }
+  }
   if (!lead.consent?.approvedPartnerIds?.includes(partner.id)) {
     problems.push("Partner was not explicitly approved");
   }
@@ -110,7 +127,8 @@ export function makeDemoLead(input, partners, now = new Date()) {
   }
   const allowed = new Set([
     "demoMode", "category", "region", "intent", "urgencyDays", "verifiedNeed",
-    "budgetConfirmed", "sourceVerified", "contactChannel", "consentGiven", "approvedPartnerIds"
+    "budgetConfirmed", "sourceVerified", "contactChannel", "consentGiven", "approvedPartnerIds",
+    "insuranceInterestConfirmed"
   ]);
   if (Object.keys(input).some(key => !allowed.has(key))) {
     throw new Error("Unknown fields refused; do not submit personal information");
@@ -126,6 +144,9 @@ export function makeDemoLead(input, partners, now = new Date()) {
     if (typeof input[field] !== "boolean") throw new Error("Invalid boolean for " + field);
   }
   if (!CHANNELS.includes(input.contactChannel)) throw new Error("Invalid channel");
+  if (input.insuranceInterestConfirmed !== undefined && typeof input.insuranceInterestConfirmed !== "boolean") {
+    throw new Error("Invalid insurance interest acknowledgement");
+  }
   if (!Array.isArray(input.approvedPartnerIds) || input.approvedPartnerIds.length > partners.length) {
     throw new Error("Invalid approved partners");
   }
@@ -149,6 +170,7 @@ export function makeDemoLead(input, partners, now = new Date()) {
     budgetConfirmed: input.budgetConfirmed,
     sourceVerified: input.sourceVerified,
     contactChannel: input.contactChannel,
+    insuranceInterestConfirmed: input.insuranceInterestConfirmed === true,
     consent: input.consentGiven ? {
       status: "granted",
       source: "direct_demo_form",
