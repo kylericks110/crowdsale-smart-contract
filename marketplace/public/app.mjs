@@ -22,7 +22,7 @@ function row(label, value, kind = "") {
   return wrap;
 }
 function textLabel(category) {
-  return ({ real_estate: "Real estate", home_services: "Home services", business_services: "Business services" })[category] || category;
+  return ({ real_estate: "Real estate", home_services: "Home services", business_services: "Business services", final_expense: "Final expense", mortgage_protection: "Mortgage protection" })[category] || category;
 }
 function toast(message) {
   const el = $("#toast"); el.textContent = message; el.classList.add("show");
@@ -164,6 +164,7 @@ async function simulate(event) {
     verifiedNeed: $("#verifiedNeed").checked,
     budgetConfirmed: $("#budgetConfirmed").checked,
     sourceVerified: $("#sourceVerified").checked,
+    insuranceInterestConfirmed: $("#insuranceInterestConfirmed").checked,
     consentGiven: $("#consentGiven").checked,
     approvedPartnerIds
   };
@@ -179,6 +180,8 @@ async function boot() {
   document.querySelectorAll("[data-tab]").forEach(button => button.addEventListener("click", () => setTab(button.dataset.tab)));
   $("#hero-simulate").addEventListener("click", () => setTab("simulation"));
   $("#consentGiven").addEventListener("change", renderApprovalChoices);
+  const queryProduct = new URLSearchParams(window.location.search).get("product");
+  if (queryProduct === "final_expense" || queryProduct === "mortgage_protection") setTab("simulation");
   $("#sim-form").addEventListener("submit", simulate);
   const [summary, leadData, partnerData] = await Promise.all([
     api("/api/summary"), api("/api/leads"), api("/api/partners")
@@ -189,9 +192,15 @@ async function boot() {
   selectOptions($("#category"), [
     { id: "real_estate", name: "Real estate" },
     { id: "home_services", name: "Home services" },
-    { id: "business_services", name: "Business services" }
+    { id: "business_services", name: "Business services" },
+    { id: "final_expense", name: "Final expense life insurance" },
+    { id: "mortgage_protection", name: "Mortgage protection life insurance" }
   ]);
   selectOptions($("#region"), ["Miami-Dade", "Broward", "Palm Beach"]);
+  if (queryProduct === "final_expense" || queryProduct === "mortgage_protection") {
+    $("#category").value = queryProduct;
+    $("#insuranceInterestConfirmed").checked = true;
+  }
   renderApprovalChoices();
   if (state.leads.length) await inspectLead(state.leads[0].id);
 }
