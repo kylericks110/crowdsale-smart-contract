@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#080d18" />
+  <meta name="description" content="Apollo Leads: consent-first lead qualification and partner matching demonstration." />
+  <title>Apollo Leads | Mission Control</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="module" src="/app.mjs"></script>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="/" aria-label="Apollo Leads home">
+        <span class="brand-mark" aria-hidden="true"><span class="brand-center"></span></span>
+        <span class="brand-copy"><strong>APOLLO</strong><small>LEADS INTELLIGENCE</small></span>
+      </a>
+      <p class="nav-caption">OPERATIONS</p>
+      <nav class="navigation" aria-label="Main navigation">
+        <button class="nav-link active" data-tab="pipeline" type="button"><span class="nav-symbol">◈</span> Lead pipeline</button>
+        <button class="nav-link" data-tab="partners" type="button"><span class="nav-symbol">◇</span> Partner network</button>
+        <button class="nav-link" data-tab="simulation" type="button"><span class="nav-symbol">✦</span> Match simulator</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <span class="micro-label">DEMO ENVIRONMENT</span>
+        <p><span class="pulse-dot"></span> Local data · no external routing</p>
+        <small>Independent of Apollo Signals trading, customer accounts, and any token.</small>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <span class="breadcrumb">APOLLO <span>/</span> LEADS <span>/</span> <strong>MISSION CONTROL</strong></span>
+        <div class="top-status"><span class="status-pulse"></span> SYSTEM ONLINE <span class="status-divider">·</span> SYNTHETIC DATA</div>
+      </header>
+
+      <div class="main-body">
+        <section class="hero">
+          <div class="hero-orbit" aria-hidden="true"><i></i><i></i><i></i><span>✺</span></div>
+          <div class="hero-content">
+            <div class="eyebrow"><span class="tiny-line"></span> THE APOLLO ADVANTAGE</div>
+            <h1>Turn intent into <em>opportunity.</em></h1>
+            <p>Discover qualified demand. Match it with the right business. Prove permission before a single referral moves.</p>
+            <div class="hero-actions">
+              <button type="button" class="btn btn-primary" id="hero-simulate">Run a simulation <span aria-hidden="true">↗</span></button>
+              <span class="hero-note">RULES-BASED PROTOTYPE, NOT LIVE AI</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="metric-grid" id="metrics" aria-label="Illustrative overview">
+          <div class="metric-card"><span>LOADING</span><strong>—</strong></div>
+        </section>
+
+        <section data-view="pipeline" class="view">
+          <div class="section-heading">
+            <div><div class="eyebrow">INTELLIGENCE FEED</div><h2>Lead pipeline</h2><p>Priority-scored examples. Qualifying a lead never overrides consent.</p></div>
+            <span class="section-tag">SYNTHETIC OPPORTUNITIES</span>
+          </div>
+          <div class="insurance-quicklinks" aria-label="Insurance campaign previews">
+            <a href="/final-expense">Final Expense <span>Landing page preview ↗</span></a>
+            <a href="/mortgage-protection">Mortgage Protection <span>Landing page preview ↗</span></a>
+          </div>
+          <div class="content-grid">
+            <div class="panel pipeline-panel">
+              <div class="table-holder">
+                <table>
+                  <thead><tr><th>OPPORTUNITY</th><th>REGION</th><th>QUALITY</th><th>APPROVED MATCHES</th></tr></thead>
+                  <tbody id="pipeline-rows"><tr><td>Loading examples…</td></tr></tbody>
+                </table>
+              </div>
+              <div class="table-caption">Select a row to inspect routing eligibility and consent evidence.</div>
+            </div>
+            <aside class="panel inspector">
+              <div class="panel-heading"><span class="micro-label">LEAD INTELLIGENCE</span><span class="inspector-glyph" aria-hidden="true">✦</span></div>
+              <div id="lead-detail" aria-live="polite"><p class="muted">Select an opportunity.</p></div>
+            </aside>
+          </div>
+        </section>
+
+        <section data-view="partners" class="view hidden">
+          <div class="section-heading">
+            <div><div class="eyebrow">TRUSTED MATCHING</div><h2>Partner network</h2><p>Category, geography, channel and capacity must all align before routing.</p></div>
+            <span class="section-tag">ILLUSTRATIVE PRICING ONLY</span>
+          </div>
+          <div id="partners-grid" class="partners-grid"></div>
+          <div class="footnote">Example prices are fictional. Apollo has not contracted, invoiced, or collected payments from these demo businesses.</div>
+        </section>
+
+        <section data-view="simulation" class="view hidden">
+          <div class="section-heading">
+            <div><div class="eyebrow">TEST THE ENGINE</div><h2>Qualification simulator</h2><p>Change the opportunity, explicitly approve partners, and see exactly what the rules allow.</p></div>
+            <span class="section-tag">NOT REAL CUSTOMER CONSENT</span>
+          </div>
+          <div class="content-grid simulator-grid">
+            <form class="panel sim-form" id="sim-form">
+              <div class="form-row"><label for="category">Service category</label><select id="category" name="category"></select></div>
+              <div class="form-row"><label for="region">Market</label><select id="region" name="region"></select></div>
+              <div class="form-row"><label for="intent">Purchase intent</label><select id="intent" name="intent"><option value="exploring">Exploring options</option><option value="comparing">Comparing providers</option><option value="ready">Ready to buy</option></select></div>
+              <div class="form-row"><label for="urgency">Time horizon</label><select id="urgency" name="urgencyDays"><option value="5">Within 7 days</option><option value="21">Within 30 days</option><option value="90">Later / research</option></select></div>
+              <div class="form-row"><label for="channel">Preferred contact channel</label><select id="channel" name="contactChannel"><option value="email">Email</option><option value="phone">Phone</option></select></div>
+              <div class="check-grid">
+                <label><input type="checkbox" id="verifiedNeed" checked /> Verified need</label>
+                <label><input type="checkbox" id="budgetConfirmed" checked /> Confirmed budget</label>
+                <label><input type="checkbox" id="sourceVerified" checked /> Verified source</label>
+                <label><input type="checkbox" id="insuranceInterestConfirmed" /> Product-specific insurance interest (synthetic)</label>
+              </div>
+              <fieldset class="consent-fieldset">
+                <legend>Simulated explicit approval</legend>
+                <label class="consent-toggle"><input type="checkbox" id="consentGiven" /> I am simulating an affirmative customer opt-in for the selected partners and channel. This is NOT real consent.</label>
+                <div id="approved-partners" class="consent-partners"></div>
+              </fieldset>
+              <button type="submit" class="btn btn-primary form-submit">Evaluate matching rules <span aria-hidden="true">↗</span></button>
+            </form>
+            <div class="panel results-panel">
+              <div class="panel-heading"><span class="micro-label">SIMULATION OUTPUT</span><span class="inspector-glyph">◎</span></div>
+              <div id="simulation-result" aria-live="polite" class="sim-placeholder"><div class="placeholder-symbol">✺</div><h3>Every match earns its place.</h3><p>Run a simulation to see transparent scoring and exactly which partners are authorized.</p></div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="footer">
+          <span>APOLLO LEADS <b> / </b> RESEARCH PROTOTYPE</span>
+          <span>NO LIVE LEADS · NO MESSAGING · NO REVENUE CLAIMS</span>
+        </footer>
+      </div>
+    </main>
+  </div>
+  <div id="toast" class="toast" aria-live="polite" role="status"></div>
+</body>
+</html>

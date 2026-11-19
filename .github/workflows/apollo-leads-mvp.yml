@@ -1,0 +1,30 @@
+name: Apollo Leads MVP checks
+
+on:
+  pull_request:
+    paths:
+      - "marketplace/**"
+      - ".github/workflows/apollo-leads-mvp.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: marketplace
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Configure Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check JS syntax
+        run: npm run check
+      - name: Run unit and API tests
+        run: npm test

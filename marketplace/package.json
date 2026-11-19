@@ -1,0 +1,13 @@
+{
+  "name": "apollo-leads-mvp",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Consent-first B2B lead marketplace prototype with synthetic data only",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "test": "node --test",
+    "check": "node --check src/engine.mjs && node --check src/data.mjs && node --check src/server.mjs && node --check public/app.mjs"
+  }
+}
