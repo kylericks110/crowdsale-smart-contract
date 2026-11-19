@@ -47,3 +47,14 @@ Lead routing, telemarketing, calls/texts, consent, Do Not Call, privacy and adve
 This app lives in an isolated `marketplace/` folder of a fork of the historical LeadCoin crowdsale repository. This does not grant trademark rights over LeadCoin or ownership of the original LDC token. The previous `apollo-v2/` token prototype is independent, and the original `master` legacy smart contracts remain unchanged.
 
 Read `docs/PRODUCTION_GATES.md` and `docs/GO_TO_MARKET.md` before proceeding.
+
+## Apollo insurance leads extension
+The same MVP now models two **separate** insurance funnels:
+- [Final Expense preview](./public/final-expense.html) at `/final-expense`
+- [Mortgage Protection preview](./public/mortgage-protection.html) at `/mortgage-protection`
+
+Both are fictional educational previews with **no intake, quotes, policy approvals, messaging, live Meta events, or lead sales**. Two additional synthetic lead fixtures and simulated product-specific partner qualification gates are included.
+
+**Important:** Demo-qualified partners have not been verified as actual licensed or appointed insurance professionals. Real operations require carrier-approved copy, actual license/appointment verification, authenticated CRM, privacy/compliance review, lawful marketing consent and DNC/suppression controls.
+
+See [Insurance launch plan](./docs/INSURANCE_LAUNCH_PLAN.md). The original legacy smart contracts remain unchanged.
