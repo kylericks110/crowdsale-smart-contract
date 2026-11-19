@@ -19,6 +19,14 @@ test("local demo APIs and privacy controls", async () => {
     assert.equal(script.status, 200);
     assert.match(await script.text(), /renderSimulation/);
 
+    for (const route of ["/final-expense", "/mortgage-protection"]) {
+      const pageResponse = await fetch(app.url + route);
+      assert.equal(pageResponse.status, 200);
+      assert.match(pageResponse.headers.get("content-type"), /text\/html/);
+      const body = await pageResponse.text();
+      assert.match(body, /APOLLO/);
+      assert.match(body, /Not an insurance application/i);
+    }
     const health = await fetch(app.url + "/api/health");
     assert.equal(health.status, 200);
     const info = await health.json();
@@ -28,7 +36,7 @@ test("local demo APIs and privacy controls", async () => {
     assert.equal(leads.status, 200);
     assert.equal(leads.headers.get("cache-control"), "no-store");
     const data = await leads.json();
-    assert.equal(data.leads.length, 6);
+    assert.equal(data.leads.length, 8);
     assert.equal(data.demo, true);
     assert.ok(!JSON.stringify(data).includes("@"));
 
